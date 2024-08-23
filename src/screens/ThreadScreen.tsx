@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useAuth from "../hooks/useAuthState";
 import Thread from "../components/Thread/Thread";
 import InputText from "../components/InputText/InputText";
@@ -29,26 +28,26 @@ export class ThreadModel {
 const ThreadScreen = () => {
   const { user } = useAuth();
   const initialThreads = threadsData.threads;
-  const [threads, setThreads] = useState(initialThreads);
+  // const [threads, setThreads] = useState(initialThreads);
 
-  const handleCreateThread = (thread: ThreadModel) => {
-    const newThread = {
-      id: threads.length > 0 ? threads[0].id + 1 : 1,
-      author: {
-        name: "Current User",
-        avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-      },
-      timestamp: new Date().toISOString(),
-      mood: "🙂",
-      content: thread.content,
-      commentsCount: 0,
-    };
+  // const handleCreateThread = (thread: ThreadModel) => {
+  //   const newThread = {
+  //     id: threads.length > 0 ? threads[0].id + 1 : 1,
+  //     author: {
+  //       name: "Current User",
+  //       avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+  //     },
+  //     timestamp: new Date().toISOString(),
+  //     mood: "🙂",
+  //     content: thread.content,
+  //     commentsCount: 0,
+  //   };
 
-    setThreads([newThread, ...threads]);
-  };
+  //   setThreads([newThread, ...threads]);
+  // };
 
   return (
-    <div className="flex flex-col items-center justify-center py-10 bg-gray-800">
+    <div className="flex flex-col items-center justify-center py-10 bg-black">
       <div className="text-white w-[700px] mb-5">
         <h1 className="mb-4 text-2xl font-medium text-primary">
           Hey {user || "Guest"}
@@ -61,10 +60,10 @@ const ThreadScreen = () => {
       <div className="container flex flex-col items-center space-y-4">
         <InputText
           placeholder="What's on your mind today?"
-          onSubmit={handleCreateThread}
+          // onSubmit={handleCreateThread}
         />
 
-        {threads.map((thread, index) => (
+        {initialThreads.map((thread, index) => (
           <Thread
             key={index}
             author={thread.author}

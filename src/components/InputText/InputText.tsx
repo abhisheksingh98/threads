@@ -1,7 +1,4 @@
-import { useState, useCallback } from "react";
-import { DateTime } from "luxon";
-import { ThreadModel } from "../../screens/ThreadScreen";
-import useAuthState from "../../hooks/useAuthState";
+import { useState } from "react";
 import Modal from "../../ui-lib/Modal";
 import LoginSignUpScreen from "../../screens/LoginSignUpScreen";
 import TextArea from "../../ui-lib/TextArea";
@@ -11,14 +8,7 @@ interface EmojiClickData {
   emoji: string;
 }
 
-const TextInput = ({
-  placeholder,
-  onSubmit,
-}: {
-  placeholder: string;
-  onSubmit: (thread: ThreadModel) => void;
-}) => {
-  const { user } = useAuthState();
+const TextInput = ({ placeholder }: { placeholder: string }) => {
   const [inputValue, setInputValue] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState("💬");
@@ -28,22 +18,22 @@ const TextInput = ({
     setInputValue(value);
   };
 
-  const handleCreatePost = useCallback(() => {
-    if (!user) {
-      setIsModalOpen(true);
-      return;
-    }
-    if (!inputValue.trim()) return;
-    const newPost = new ThreadModel(
-      user,
-      DateTime.now().toJSDate(),
-      selectedEmoji,
-      inputValue
-    );
-    onSubmit(newPost);
-    setInputValue("");
-    setSelectedEmoji("💬");
-  }, [user, inputValue, selectedEmoji, onSubmit]);
+  // const handleCreatePost = useCallback(() => {
+  //   if (!user) {
+  //     setIsModalOpen(true);
+  //     return;
+  //   }
+  //   if (!inputValue.trim()) return;
+  //   const newPost = new ThreadModel(
+  //     user,
+  //     DateTime.now().toJSDate(),
+  //     selectedEmoji,
+  //     inputValue
+  //   );
+  //   onSubmit(newPost);
+  //   setInputValue("");
+  //   setSelectedEmoji("💬");
+  // }, [user, inputValue, selectedEmoji, onSubmit]);
 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker((prev) => !prev);
@@ -85,7 +75,7 @@ const TextInput = ({
         </div>
         <div className="flex items-center justify-end text-right">
           <button
-            onClick={handleCreatePost}
+            onClick={() => setIsModalOpen(true)}
             className="w-[111px] h-[43px] mt-4 text-white bg-blue-500 rounded"
           >
             Post

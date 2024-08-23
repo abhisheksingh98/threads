@@ -31,24 +31,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center h-screen overflow-hidden backdrop-blur-md"
-      aria-modal="true"
-      role="dialog"
-    >
-      <div
-        className="fixed inset-0 w-full h-screen bg-black opacity-50"
-        aria-hidden="true"
-      ></div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center h-screen overflow-hidden backdrop-blur-md">
+      <div className="fixed inset-0 w-full h-screen overflow-hidden bg-black opacity-50"></div>
       <div
         ref={modalRef}
-        className="relative max-w-md mx-auto bg-white rounded-lg shadow-lg"
-        role="document"
+        className="z-10 max-w-md mx-auto bg-white rounded-lg shadow-lg"
       >
         <button
-          className="absolute top-2 right-2 p-1 text-gray-500 hover:text-gray-800"
+          className="absolute text-gray-500 top-2 right-2 hover:text-gray-800"
           onClick={onClose}
-          aria-label="Close modal"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

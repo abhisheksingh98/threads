@@ -1,13 +1,17 @@
 import React from "react";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginSignUpScreen from "./screens/LoginSignUpScreen";
 import ThreadScreen from "./screens/ThreadScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginSignUpScreen />,
+    element: (
+      <HomeScreen>
+        <LoginSignUpScreen />
+      </HomeScreen>
+    ),
   },
   {
     path: "/threads",
