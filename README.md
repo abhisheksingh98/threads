@@ -22,7 +22,7 @@ https://github.com/user-attachments/assets/b5fde2c9-2387-47d7-b236-afddb630e7e1
 
 2. Navigate to the project directory:
 
-  ```cd your-repo-name```
+  ```cd threads```
 
 3. Install dependencies:
 
