@@ -21,7 +21,7 @@ const LoginForm = ({ toggleForm }: { toggleForm: () => void }) => {
     }
 
     loginUser(email);
-    navigate("/posts");
+    navigate("/threads");
   };
 
   return (

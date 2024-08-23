@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuth from "../hooks/useAuthState";
 import Thread from "../components/Thread/Thread";
+import InputText from "../components/InputText/InputText";
 import threadsData from "../data/threads.json";
 
 export class ThreadModel {
@@ -25,10 +26,26 @@ export class ThreadModel {
   }
 }
 
-const Threads = () => {
+const ThreadScreen = () => {
   const { user } = useAuth();
   const initialThreads = threadsData.threads;
   const [threads, setThreads] = useState(initialThreads);
+
+  const handleCreateThread = (thread: ThreadModel) => {
+    const newThread = {
+      id: threads.length > 0 ? threads[0].id + 1 : 1,
+      author: {
+        name: "Current User",
+        avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+      },
+      timestamp: new Date().toISOString(),
+      mood: "🙂",
+      content: thread.content,
+      commentsCount: 0,
+    };
+
+    setThreads([newThread, ...threads]);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center py-10 bg-gray-800">
@@ -42,6 +59,11 @@ const Threads = () => {
       </div>
 
       <div className="container flex flex-col items-center space-y-4">
+        <InputText
+          placeholder="What's on your mind today?"
+          onSubmit={handleCreateThread}
+        />
+
         {threads.map((thread, index) => (
           <Thread
             key={index}
@@ -58,4 +80,4 @@ const Threads = () => {
   );
 };
 
-export default Threads;
+export default ThreadScreen;

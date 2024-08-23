@@ -40,7 +40,7 @@ const ThreadItem: React.FC<ThreadItemProps> = ({
         )}
       </div>
 
-      <div className="flex p-4 mb-4 space-x-5 rounded-lg bg-gray-800">
+      <div className="flex items-center p-4 mb-4 space-x-5 rounded-lg bg-gray-800">
         {mood && (
           <div className="flex items-center justify-center rounded-full bg-gray-600 w-12 h-12">
             <span role="img" aria-label="mood" className="text-2xl">
