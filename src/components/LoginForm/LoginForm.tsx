@@ -7,16 +7,31 @@ import useAuthState from "../../hooks/useAuthState";
 const LoginForm = ({ toggleForm }: { toggleForm: () => void }) => {
   const { loginUser } = useAuthState();
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const validateEmail = (email: string) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
+  };
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
     if (!email || !password) {
       setError("Please fill in both fields.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
       return;
     }
 
@@ -56,7 +71,6 @@ const LoginForm = ({ toggleForm }: { toggleForm: () => void }) => {
             >
               Login Now
             </button>
-
             <div className="flex mt-3 space-x-2 text-gray-500 text-md">
               <p>Not registered yet?</p>
               <p

@@ -8,14 +8,53 @@ const SignupForm = ({ toggleForm }: { toggleForm: () => void }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const validateEmail = (email: string) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
+  };
+
+  const validateUsername = (username: string) => {
+    const re = /^[a-zA-Z0-9_]{3,20}$/;
+    return re.test(username);
+  };
+
+  const validatePassword = (password: string) => {
+    // At least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
+    const re =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return re.test(password);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
     if (!email || !username || !password) {
       setError("All fields are required.");
       return;
     }
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!validateUsername(username)) {
+      setError(
+        "Username must be 3-20 characters long and can only contain letters, numbers, and underscores."
+      );
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError(
+        "Password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character."
+      );
+      return;
+    }
+
     console.log({ email, username, password });
+    // Proceed with signup
   };
 
   return (
