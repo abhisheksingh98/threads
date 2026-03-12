@@ -1,29 +1,14 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginSignUpScreen from "./screens/LoginSignUpScreen";
-import ThreadScreen from "./screens/ThreadScreen";
-import HomeScreen from "./screens/HomeScreen";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <HomeScreen>
-        <LoginSignUpScreen />
-      </HomeScreen>
-    ),
-  },
-  {
-    path: "/threads",
-    element: <ThreadScreen />,
-  },
-]);
+import { Provider } from 'react-redux';
+import store from './store';
+import AppContainer from './screens/AppContainer';
+import './App.css';
 
 function App() {
   return (
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   );
 }
 
