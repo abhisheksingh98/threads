@@ -133,15 +133,14 @@ const usersReducer = (state = initialUsersState, action: any) => {
                 byId: {
                     ...state.byId,
                     [action.payload.id]: {
-                        ...(state.byId[action.payload.id as keyof typeof state.byId] || {}),
+                        ...((state.byId as Record<string, any>)[action.payload.id] || {}),
                         ...action.payload
                     }
                 }
             };
         case types.FOLLOW_USER:
-            // Update both users
-            const targetUser = state.byId[action.payload.targetUserId as keyof typeof state.byId] || { id: action.payload.targetUserId, followers: [], following: [] };
-            const currentUser = state.byId[action.payload.currentUserId as keyof typeof state.byId] || { id: action.payload.currentUserId, followers: [], following: [] };
+            const targetUser: any = (state.byId as Record<string, any>)[action.payload.targetUserId] || { id: action.payload.targetUserId, followers: [], following: [] };
+            const currentUser: any = (state.byId as Record<string, any>)[action.payload.currentUserId] || { id: action.payload.currentUserId, followers: [], following: [] };
 
             return {
                 ...state,
@@ -159,8 +158,8 @@ const usersReducer = (state = initialUsersState, action: any) => {
             };
         case types.UNFOLLOW_USER:
             // Update both users
-            const tUser = state.byId[action.payload.targetUserId as keyof typeof state.byId];
-            const cUser = state.byId[action.payload.currentUserId as keyof typeof state.byId];
+            const tUser: any = (state.byId as Record<string, any>)[action.payload.targetUserId];
+            const cUser: any = (state.byId as Record<string, any>)[action.payload.currentUserId];
             if (!tUser || !cUser) return state;
 
             return {
