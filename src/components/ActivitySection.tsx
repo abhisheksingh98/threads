@@ -1,10 +1,16 @@
-// components/ActivitySection.tsx
-import { Component } from 'react';
-import { connect } from 'react-redux';
 import moment from 'moment';
 
-class ActivitySection extends Component<any, any> {
-    renderNotification(notif: any) {
+interface Notification {
+    id: string;
+    type: 'like' | 'follow' | 'reply';
+    actorId: string;
+    actorName: string;
+    content?: string;
+    createdAt: string;
+}
+
+const ActivitySection = () => {
+    const renderNotification = (notif: Notification) => {
         return (
             <div key={notif.id} className="flex items-center justify-between py-4 px-4 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer">
                 <div className="flex items-start gap-3 w-full">
@@ -35,31 +41,30 @@ class ActivitySection extends Component<any, any> {
                 )}
             </div>
         );
-    }
+    };
 
-    render() {
-        // Simulating hardcoded mockup data since legacy setup requires too much boilerplate
-        const mockNotifications = [
-            { id: '1', type: 'follow', actorId: 'user_2', actorName: 'mosseri', createdAt: new Date(Date.now() - 3600000).toISOString() },
-            { id: '2', type: 'like', actorId: 'user_3', actorName: 'mkbhd', content: 'This is an amazing offline clone', createdAt: new Date(Date.now() - 7200000).toISOString() },
-            { id: '3', type: 'reply', actorId: 'user_4', actorName: 'lexfridman', content: 'Fascinating architecture choice.', createdAt: new Date(Date.now() - 86400000).toISOString() },
-        ];
+    const mockNotifications: Notification[] = [
+        { id: '1', type: 'follow', actorId: 'user_2', actorName: 'mosseri', createdAt: new Date(Date.now() - 3600000).toISOString() },
+        { id: '2', type: 'like', actorId: 'user_3', actorName: 'mkbhd', content: 'This is an amazing offline clone', createdAt: new Date(Date.now() - 7200000).toISOString() },
+        { id: '3', type: 'reply', actorId: 'user_4', actorName: 'lexfridman', content: 'Fascinating architecture choice.', createdAt: new Date(Date.now() - 86400000).toISOString() },
+    ];
 
-        return (
-            <div className="bg-white min-h-[85vh] pt-2">
-                <div className="px-4 mb-2 pb-2 border-b border-gray-100 flex gap-4 overflow-x-auto no-scrollbar touch-pan-x">
-                    {['All', 'Follows', 'Replies', 'Mentions', 'Quotes', 'Reposts'].map((tab, i) => (
-                        <button key={tab} className={`px-4 py-1.5 rounded-xl text-sm font-bold whitespace-nowrap ${i === 0 ? 'bg-black text-white' : 'border border-gray-200 text-gray-900 bg-white hover:bg-gray-50'}`}>
-                            {tab}
-                        </button>
-                    ))}
-                </div>
-                <div className="flex flex-col">
-                    {mockNotifications.map(notif => this.renderNotification(notif))}
-                </div>
+    return (
+        <div className="bg-white min-h-[85vh] pt-2">
+            <div className="px-4 mb-2 pb-2 border-b border-gray-100 flex gap-4 overflow-x-auto no-scrollbar touch-pan-x">
+                {['All', 'Follows', 'Replies', 'Mentions', 'Quotes', 'Reposts'].map((tab, i) => (
+                    <button key={tab} className={`px-4 py-1.5 rounded-xl text-sm font-bold whitespace-nowrap ${i === 0 ? 'bg-black text-white' : 'border border-gray-200 text-gray-900 bg-white hover:bg-gray-50'}`}>
+                        {tab}
+                    </button>
+                ))}
             </div>
-        );
-    }
-}
+            <div className="flex flex-col">
+                {mockNotifications.map(notif => renderNotification(notif))}
+            </div>
+        </div>
+    );
+};
 
-export default connect()(ActivitySection);
+export default ActivitySection;
+
+
